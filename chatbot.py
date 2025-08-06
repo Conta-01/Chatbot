@@ -77,9 +77,9 @@ class Config:
     API_KEY = "AIzaSyAvT4p0O-0XFg5ROvq1U-1TVsd7cP8B19c"
     API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={API_KEY}"
     VIP_LINK = "https://exemplo.com/vip"
-    CHECKOUT_START = "https://checkout.exemplo.com/start"
-    CHECKOUT_PREMIUM = "https://checkout.exemplo.com/premium"
-    CHECKOUT_EXTREME = "https://checkout.exemplo.com/extreme"
+    CHECKOUT_START = "https://pay.cakto.com.br/kcovq2p_513999"
+    CHECKOUT_PREMIUM = "https://pay.cakto.com.br/35g9mfb_514020"
+    CHECKOUT_EXTREME = "https://pay.cakto.com.br/q5qtnoo_514037"
     CHECKOUT_VIP_1MES = "https://checkout.exemplo.com/vip-1mes"
     CHECKOUT_VIP_3MESES = "https://checkout.exemplo.com/vip-3meses"
     CHECKOUT_VIP_1ANO = "https://checkout.exemplo.com/vip-1ano"
@@ -1681,6 +1681,7 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
 
