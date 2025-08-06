@@ -74,7 +74,7 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 # CONSTANTES E CONFIGURAÇÕES
 # ======================
 class Config:
-    API_KEY = "AIzaSyApnywMlzQS5f5J3MS2hbiVKU1EEOjHzhs"
+    API_KEY = "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"
     API_URL = f"https://api.groq.com/openai/v1/chat/completions?key={API_KEY}"
     VIP_LINK = "https://exemplo.com/vip"
     CHECKOUT_START = "https://pay.cakto.com.br/kcovq2p_513999"
@@ -1681,6 +1681,7 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
 
