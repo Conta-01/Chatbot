@@ -80,9 +80,9 @@ class Config:
     CHECKOUT_START = "https://pay.cakto.com.br/kcovq2p_513999"
     CHECKOUT_PREMIUM = "https://pay.cakto.com.br/35g9mfb_514020"
     CHECKOUT_EXTREME = "https://pay.cakto.com.br/q5qtnoo_514037"
-    CHECKOUT_VIP_1MES = "https://checkout.exemplo.com/vip-1mes"
-    CHECKOUT_VIP_3MESES = "https://checkout.exemplo.com/vip-3meses"
-    CHECKOUT_VIP_1ANO = "https://checkout.exemplo.com/vip-1ano"
+    CHECKOUT_VIP_1MES = "https://pay.cakto.com.br/izijb3o_514161"
+    CHECKOUT_VIP_3MESES = "https://pay.cakto.com.br/3durczu_514169"
+    CHECKOUT_VIP_1ANO = "https://pay.cakto.com.br/b4vwxky_514175"
     MAX_REQUESTS_PER_SESSION = 30
     REQUEST_TIMEOUT = 30
     AUDIO_FILE = "https://github.com/Conta-01/Chatbot/raw/refs/heads/main/assets/assets_audio_paloma_audio.mp3"
@@ -1681,6 +1681,7 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
 
