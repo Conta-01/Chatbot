@@ -1276,7 +1276,7 @@ class NewPages:
             },
             {
                 "name": "1 Ano",
-                "price": "R$ 199,90",
+                "price": "R$ 299,00",
                 "original": "R$ 598,80",
                 "benefits": ["66% de desconto", "Presente surpresa mensal", "Acesso a conteúdos raros"],
                 "tag": "MELHOR CUSTO-BENEFÍCIO",
@@ -1681,6 +1681,7 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
 
