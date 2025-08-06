@@ -749,7 +749,7 @@ class UiService:
             st.markdown("""
             <div class="vip-badge">
                 <p style="margin: 0 0 10px; font-weight: bold;">Acesso completo por apenas</p>
-                <p style="margin: 0; font-size: 1.5em; font-weight: bold;">R$ 29,90/mês</p>
+                <p style="margin: 0; font-size: 1.5em; font-weight: bold;">R$ 45,00/mês</p>
                 <p style="margin: 10px 0 0; font-size: 0.8em;">Cancele quando quiser</p>
             </div>
             """, unsafe_allow_html=True)
@@ -1681,6 +1681,7 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
 
