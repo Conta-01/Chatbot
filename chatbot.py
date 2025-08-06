@@ -1260,8 +1260,8 @@ class NewPages:
         plans = [
             {
                 "name": "1 Mês",
-                "price": "R$ 29,90",
-                "original": "R$ 49,90",
+                "price": "R$ 45,00",
+                "original": "R$ 65,00",
                 "benefits": ["Acesso total", "Conteúdo novo diário", "Chat privado"],
                 "tag": "COMUM",
                 "link": Config.CHECKOUT_VIP_1MES + "?plan=1mes"
@@ -1681,6 +1681,7 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
 
