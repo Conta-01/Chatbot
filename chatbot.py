@@ -10,7 +10,6 @@ from functools import lru_cache
 # CONFIGURAÇÃO INICIAL
 # ======================
 st.set_page_config(page_title="Paloma Premium", page_icon="💋", layout="centered")
-st.markdown("<style>body { background-color: #fff0f5; }</style>", unsafe_allow_html=True)
 
 # ======================
 # CONFIGURAÇÕES GERAIS
@@ -45,7 +44,6 @@ class ApiService:
     def _call_groq_api(prompt: str, session_id: str) -> dict:
         delay = random.uniform(2, 5)
         time.sleep(delay)
-        st.info("Paloma está digitando...")
 
         conversation = ChatService.format_conversation(st.session_state.get("messages", []))
 
@@ -111,28 +109,28 @@ def show_chat():
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
-    user_input = st.text_input("Digite algo para Paloma...", key="user_input")
+    for msg in st.session_state.messages:
+        with st.chat_message("user" if msg["role"] == "user" else "assistant"):
+            st.markdown(msg["content"])
+
+    user_input = st.chat_input("Digite algo para Paloma...")
 
     if user_input:
         st.session_state.messages.append({"role": "user", "content": user_input})
+
+        with st.chat_message("user"):
+            st.markdown(user_input)
+
         resposta = ApiService.ask_groq(user_input, get_user_id())
         st.session_state.messages.append({"role": "assistant", "content": resposta['text']})
 
-        # Resposta da Paloma
-        st.markdown(f"**Paloma:** {resposta['text']}")
+        with st.chat_message("assistant"):
+            st.markdown(resposta['text'])
 
-        # CTA
-        if resposta.get("cta", {}).get("show"):
-            label = resposta["cta"]["label"]
-            link = Config.CHECKOUT_LINKS.get(resposta["cta"]["target"], "#")
-            st.markdown(f"[👉 {label}]({link})", unsafe_allow_html=True)
-
-    # Histórico da conversa
-    st.markdown("---")
-    st.subheader("Histórico da conversa")
-    for msg in st.session_state.messages:
-        role = "Você" if msg["role"] == "user" else "Paloma"
-        st.markdown(f"**{role}:** {msg['content']}")
+            if resposta.get("cta", {}).get("show"):
+                label = resposta["cta"]["label"]
+                link = Config.CHECKOUT_LINKS.get(resposta["cta"]["target"], "#")
+                st.markdown(f"[👉 {label}]({link})", unsafe_allow_html=True)
 
 # ======================
 # EXECUÇÃO
