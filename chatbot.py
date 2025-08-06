@@ -1116,7 +1116,7 @@ class NewPages:
         <div class="package-box package-start">
             <div class="package-header">
                 <h3 style="color: #ff66b3;">START</h3>
-                <div class="package-price" style="color: #ff66b3;">R$ 22</div>
+                <div class="package-price" style="color: #ff66b3;">R$ 22,00</div>
                 <small>para iniciantes</small>
             </div>
             <ul class="package-benefits">
@@ -1681,5 +1681,6 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
