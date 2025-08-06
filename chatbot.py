@@ -1,92 +1,33 @@
 import streamlit as st
-import requests
+import uuid
 import json
+import requests
 import time
 import random
-import uuid
-from functools import lru_cache
 
-# ======================
-# CONFIGURAÇÃO INICIAL
-# ======================
 st.set_page_config(page_title="Paloma Premium", page_icon="💋", layout="centered")
 
-# ======================
-# CONFIGURAÇÕES GERAIS
-# ======================
-class Config:
-    REQUEST_TIMEOUT = 30
-    CHECKOUT_LINKS = {
-        "start": "https://pay.cakto.com.br/kcovq2p_513999",
-        "premium": "https://pay.cakto.com.br/35g9mfb_514020",
-        "extreme": "https://pay.cakto.com.br/q5qtnoo_514037",
-        "vip_1mes": "https://pay.cakto.com.br/izijb3o_514161",
-        "vip_3meses": "https://pay.cakto.com.br/3durczu_514169",
-        "vip_1ano": "https://pay.cakto.com.br/b4vwxky_514175"
-    }
+CHECKOUT_LINKS = {
+    "start": "https://pay.cakto.com.br/kcovq2p_513999",
+    "premium": "https://pay.cakto.com.br/35g9mfb_514020",
+    "extreme": "https://pay.cakto.com.br/q5qtnoo_514037",
+    "vip_1mes": "https://pay.cakto.com.br/izijb3o_514161",
+    "vip_3meses": "https://pay.cakto.com.br/3durczu_514169",
+    "vip_1ano": "https://pay.cakto.com.br/b4vwxky_514175"
+}
 
-# ======================
-# PERSONA DA PALOMA
-# ======================
-class Persona:
-    PALOMA = "Você é uma mulher chamada Paloma. Fale como uma mulher provocante e vulgar. Sempre responda no seguinte formato JSON: { \"text\": \"mensagem\", \"cta\": { \"show\": true/false, \"label\": \"texto do botão\", \"target\": \"link ou nome da página\" } }."
+PALOMA_SYSTEM_PROMPT = """Você é uma mulher chamada Paloma. Fale como uma mulher provocante e vulgar.
+Sempre responda no seguinte formato JSON:
+{
+  "text": "mensagem",
+  "cta": {
+    "show": true/false,
+    "label": "texto do botão",
+    "target": "link ou nome da página"
+  }
+}
+"""
 
-# ======================
-# SERVIÇO DE API (GROQ)
-# ======================
-class ApiService:
-    @staticmethod
-    @lru_cache(maxsize=100)
-    def ask_groq(prompt: str, session_id: str) -> dict:
-        return ApiService._call_groq_api(prompt, session_id)
-
-    @staticmethod
-    def _call_groq_api(prompt: str, session_id: str) -> dict:
-        delay = random.uniform(2, 5)
-        time.sleep(delay)
-
-        conversation = ChatService.format_conversation(st.session_state.get("messages", []))
-
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer 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"
-        }
-
-        data = {
-            "model": "meta-llama/llama-4-scout-17b-16e-instruct",
-            "messages": [
-                {"role": "system", "content": Persona.PALOMA},
-                {"role": "user", "content": f"{conversation}\n\nÚltima mensagem: '{prompt}'"}
-            ],
-            "temperature": 0.9,
-            "top_p": 0.8,
-        }
-
-        try:
-            response = requests.post("https://api.groq.com/openai/v1/chat/completions",
-                                     headers=headers, json=data, timeout=Config.REQUEST_TIMEOUT)
-            response.raise_for_status()
-            result = response.json()
-            raw = result["choices"][0]["message"]["content"]
-
-            try:
-                if '```json' in raw:
-                    return json.loads(raw.split('```json')[1].split('```')[0].strip())
-                else:
-                    return json.loads(raw)
-            except:
-                return {"text": raw, "cta": {"show": False}}
-        except Exception as e:
-            st.error(f"Erro na API Groq: {str(e)}")
-            return {"text": "Deu ruim aqui 😥 tenta de novo mais tarde", "cta": {"show": False}}
-
-# ======================
-# CHAT E SESSÃO
-# ======================
-class ChatService:
-    @staticmethod
-    def format_conversation(messages):
-        return "\n".join([f"{m['role']}: {m['content']}" for m in messages])
 
 def get_user_id():
     if "user_id" not in st.session_state:
@@ -99,9 +40,49 @@ def get_user_id():
         st.session_state.user_id = user_id
     return st.session_state.user_id
 
-# ======================
-# INTERFACE
-# ======================
+
+def ask_groq(prompt: str, session_id: str):
+    delay = random.uniform(2, 5)
+    time.sleep(delay)
+    conversation = st.session_state.get("messages", [])
+
+    messages = [{"role": "system", "content": PALOMA_SYSTEM_PROMPT}]
+    for msg in conversation:
+        messages.append({"role": msg["role"], "content": msg["content"]})
+    messages.append({"role": "user", "content": prompt})
+
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer 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"
+    }
+
+    payload = {
+        "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+        "messages": messages,
+        "temperature": 0.9,
+        "top_p": 0.8,
+    }
+
+    try:
+        response = requests.post("https://api.groq.com/openai/v1/chat/completions",
+                                 headers=headers, json=payload, timeout=30)
+        response.raise_for_status()
+        result = response.json()
+        raw = result["choices"][0]["message"]["content"]
+
+        try:
+            if '```json' in raw:
+                return json.loads(raw.split('```json')[1].split('```')[0].strip())
+            else:
+                return json.loads(raw)
+        except:
+            return {"text": raw, "cta": {"show": False}}
+
+    except Exception as e:
+        st.error(f"Erro na API: {e}")
+        return {"text": "Deu ruim aqui 😥 tenta de novo mais tarde", "cta": {"show": False}}
+
+
 def show_chat():
     st.title("💋 Paloma Premium")
     st.markdown("Converse com a Paloma e descubra os segredos mais picantes...")
@@ -113,27 +94,26 @@ def show_chat():
         with st.chat_message("user" if msg["role"] == "user" else "assistant"):
             st.markdown(msg["content"])
 
-    user_input = st.chat_input("Digite algo para Paloma...")
+    prompt = st.chat_input("Mande sua mensagem")
 
-    if user_input:
-        st.session_state.messages.append({"role": "user", "content": user_input})
-
+    if prompt:
+        st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
-            st.markdown(user_input)
+            st.markdown(prompt)
 
-        resposta = ApiService.ask_groq(user_input, get_user_id())
-        st.session_state.messages.append({"role": "assistant", "content": resposta['text']})
+        session_id = get_user_id()
+        response = ask_groq(prompt, session_id)
+        output = response["text"]
+        st.session_state.messages.append({"role": "assistant", "content": output})
 
         with st.chat_message("assistant"):
-            st.markdown(resposta['text'])
-
-            if resposta.get("cta", {}).get("show"):
-                label = resposta["cta"]["label"]
-                link = Config.CHECKOUT_LINKS.get(resposta["cta"]["target"], "#")
+            st.markdown(output)
+            if response.get("cta", {}).get("show"):
+                label = response["cta"]["label"]
+                target = response["cta"]["target"]
+                link = CHECKOUT_LINKS.get(target, "#")
                 st.markdown(f"[👉 {label}]({link})", unsafe_allow_html=True)
 
-# ======================
-# EXECUÇÃO
-# ======================
+
 if __name__ == "__main__":
     show_chat()
