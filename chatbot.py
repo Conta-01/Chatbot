@@ -75,7 +75,7 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 # ======================
 class Config:
     API_KEY = "AIzaSyApnywMlzQS5f5J3MS2hbiVKU1EEOjHzhs"
-    API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={API_KEY}"
+    API_URL = f"https://api.groq.com/openai/v1/chat/completions?key={API_KEY}"
     VIP_LINK = "https://exemplo.com/vip"
     CHECKOUT_START = "https://pay.cakto.com.br/kcovq2p_513999"
     CHECKOUT_PREMIUM = "https://pay.cakto.com.br/35g9mfb_514020"
