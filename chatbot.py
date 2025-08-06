@@ -1268,7 +1268,7 @@ class NewPages:
             },
             {
                 "name": "3 Meses",
-                "price": "R$ 69,90",
+                "price": "R$ 125,00",
                 "original": "R$ 149,70",
                 "benefits": ["25% de desconto", "Bônus: 1 vídeo exclusivo", "Prioridade no chat"],
                 "tag": "MAIS POPULAR",
@@ -1681,6 +1681,7 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
 
