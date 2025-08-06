@@ -111,25 +111,28 @@ def show_chat():
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
-    user_input = st.chat_input("Digite algo para Paloma...")
+    user_input = st.text_input("Digite algo para Paloma...", key="user_input")
 
     if user_input:
         st.session_state.messages.append({"role": "user", "content": user_input})
         resposta = ApiService.ask_groq(user_input, get_user_id())
         st.session_state.messages.append({"role": "assistant", "content": resposta['text']})
 
-        # Mostra resposta da Paloma
-        st.chat_message("Paloma").markdown(resposta['text'])
+        # Resposta da Paloma
+        st.markdown(f"**Paloma:** {resposta['text']}")
 
-        # Botão CTA se houver
+        # CTA
         if resposta.get("cta", {}).get("show"):
             label = resposta["cta"]["label"]
             link = Config.CHECKOUT_LINKS.get(resposta["cta"]["target"], "#")
             st.markdown(f"[👉 {label}]({link})", unsafe_allow_html=True)
 
+    # Histórico da conversa
+    st.markdown("---")
+    st.subheader("Histórico da conversa")
     for msg in st.session_state.messages:
         role = "Você" if msg["role"] == "user" else "Paloma"
-        st.chat_message(role).markdown(msg["content"])
+        st.markdown(f"**{role}:** {msg['content']}")
 
 # ======================
 # EXECUÇÃO
