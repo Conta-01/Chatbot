@@ -74,7 +74,7 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 # CONSTANTES E CONFIGURAÇÕES
 # ======================
 class Config:
-    API_KEY = "AIzaSyAvT4p0O-0XFg5ROvq1U-1TVsd7cP8B19c"
+    API_KEY = "AIzaSyBzkWufzSSsu2DAQv9PXExewpb3QrB2Z8I"
     API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={API_KEY}"
     VIP_LINK = "https://exemplo.com/vip"
     CHECKOUT_START = "https://pay.cakto.com.br/kcovq2p_513999"
@@ -1681,6 +1681,7 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
 
