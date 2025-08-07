@@ -74,8 +74,8 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 # CONSTANTES E CONFIGURAÇÕES
 # ======================
 class Config:
-    API_KEY = "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"
-    API_URL = f"https://api.groq.com/openai/v1/chat/completions?key={API_KEY}"
+    API_KEY = "AIzaSyDTaYm2KHHnVPdWy4l5pEaGPM7QR0g3IPc"
+    API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={API_KEY}"
     VIP_LINK = "https://exemplo.com/vip"
     CHECKOUT_START = "https://pay.cakto.com.br/kcovq2p_513999"
     CHECKOUT_PREMIUM = "https://pay.cakto.com.br/35g9mfb_514020"
@@ -1681,7 +1681,6 @@ def main():
 if __name__ == "__main__":
 
     main()
-
 
 
 
