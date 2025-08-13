@@ -87,7 +87,7 @@ class Config:
     REQUEST_TIMEOUT = 30
     AUDIO_FILE = "https://github.com/Conta-01/Chatbot/raw/refs/heads/main/assets/assets_audio_paloma_audio.mp3"
     AUDIO_DURATION = 7
-    IMG_PROFILE = "https://i.ibb.co/ks5CNrDn/IMG-9256.jpg"
+    IMG_PROFILE = "https://ibb.co/KxSv7vLS"
     IMG_GALLERY = [
         "https://i.ibb.co/zhNZL4FF/IMG-9198.jpg",
         "https://i.ibb.co/Y4B7CbXf/IMG-9202.jpg",
@@ -1681,6 +1681,7 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
 
