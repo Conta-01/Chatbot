@@ -1363,7 +1363,7 @@ class ChatService:
         formatted = []
         
         for msg in messages[-max_messages:]:
-            role = "Cliente" if msg["role"] == "user" else "Paloma"
+            role = "Cliente" if msg["role"] == "user" else "Sabrina"
             content = msg["content"]
             if content == "[ÁUDIO]":
                 content = "[Enviou um áudio sensual]"
@@ -1642,7 +1642,7 @@ def main():
             st.markdown("""
             <div style="text-align: center; margin: 50px 0;">
                 <img src="{profile_img}" width="120" style="border-radius: 50%; border: 3px solid #ff66b3;">
-                <h2 style="color: #ff66b3; margin-top: 15px;">Paloma</h2>
+                <h2 style="color: #ff66b3; margin-top: 15px;">Sabrina</h2>
                 <p style="font-size: 1.1em;">Estou pronta para você, amor...</p>
             </div>
             """.format(profile_img=Config.IMG_PROFILE), unsafe_allow_html=True)
@@ -1681,6 +1681,7 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
 
