@@ -762,7 +762,7 @@ class UiService:
             st.markdown("---")
             st.markdown("""
             <div style="text-align: center; font-size: 0.7em; color: #888;">
-                <p>© 2024 Paloma Premium</p>
+                <p>© 2024 Sabrina Premium</p>
                 <p>Conteúdo para maiores de 18 anos</p>
             </div>
             """, unsafe_allow_html=True)
@@ -903,7 +903,7 @@ class UiService:
         
         st.markdown(f"""
         <div class="chat-header">
-            <h2 style="margin:0; font-size:1.5em; display:inline-block;">Chat Privado com Paloma</h2>
+            <h2 style="margin:0; font-size:1.5em; display:inline-block;">Chat Privado com Sabrina</h2>
         </div>
         """, unsafe_allow_html=True)
         
@@ -967,7 +967,7 @@ class NewPages:
 
         st.markdown("""
         <div class="hero-banner">
-            <h1 style="color: #ff66b3;">Paloma Premium</h1>
+            <h1 style="color: #ff66b3;">Sabrina Premium</h1>
             <p>Conteúdo exclusivo que você não encontra em nenhum outro lugar...</p>
             <div style="margin-top: 20px;">
                 <a href="#vip" style="
@@ -1681,6 +1681,7 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
 
